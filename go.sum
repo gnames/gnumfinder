@@ -53,6 +53,13 @@ github.com/gnames/gner v0.0.2-0.20201030131355-5190c7b63994 h1:Pei2vjwbXcudFupX8
 github.com/gnames/gner v0.0.2-0.20201030131355-5190c7b63994/go.mod h1:27gSuPvvWfLlIpYZlEkZxLbXv7Lc6dcJjKuEm5PhF40=
 github.com/gnames/gner v0.0.2-0.20201030144851-ad736bbd107b h1:RaQ5/adnpXXt/Lf86W+zYmaWVi3OY3mPuqJzvzaCAqo=
 github.com/gnames/gner v0.0.2-0.20201030144851-ad736bbd107b/go.mod h1:27gSuPvvWfLlIpYZlEkZxLbXv7Lc6dcJjKuEm5PhF40=
+github.com/gnames/gner v0.0.2-0.20201101181516-e0404df1412d/go.mod h1:27gSuPvvWfLlIpYZlEkZxLbXv7Lc6dcJjKuEm5PhF40=
+github.com/gnames/gner v0.0.2-0.20201101183152-29c828055117 h1:zNWKon3vuLs4t+fyekWSpjrWdllSLMdS+SJf1y3fNNw=
+github.com/gnames/gner v0.0.2-0.20201101183152-29c828055117/go.mod h1:27gSuPvvWfLlIpYZlEkZxLbXv7Lc6dcJjKuEm5PhF40=
+github.com/gnames/gner v0.0.2-0.20201101193309-a339868c1046 h1:A8MVknhWQIxvagT+lZHbHIrlVQud2pi7RaZDQ15xUGg=
+github.com/gnames/gner v0.0.2-0.20201101193309-a339868c1046/go.mod h1:27gSuPvvWfLlIpYZlEkZxLbXv7Lc6dcJjKuEm5PhF40=
+github.com/gnames/gner v0.0.2 h1:cdqxgkwNQi6KJRzB0ZVfx6uNCAd+u63aM5nEPoWtdtQ=
+github.com/gnames/gner v0.0.2/go.mod h1:27gSuPvvWfLlIpYZlEkZxLbXv7Lc6dcJjKuEm5PhF40=
 github.com/gnames/gnlib v0.0.2 h1:QmvN2PBXJY7XVhnV1BIcM2N9b76s49TDkmFl9AG/1g8=
 github.com/gnames/gnlib v0.0.2/go.mod h1:k7Wsdx6zTzyhbxH2JcoCVFvgOQzA4iwehRxa8eEOfF8=
 github.com/go-gl/glfw v0.0.0-20190409004039-e6da0acd62b1/go.mod h1:vR7hzQXu2zJy9AVAgeJqvqgH9Q5CA+iKCZ2gyEVpxRU=
