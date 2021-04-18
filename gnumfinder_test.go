@@ -1,20 +1,18 @@
-package numfinder_test
+package gnumfinder_test
 
 import (
 	"io/ioutil"
 	"path/filepath"
 	"testing"
 
-	"github.com/gnames/gner/domain/entity/txt"
-	"github.com/gnames/gner/domain/usecase/ner"
-	"github.com/gnames/gnumfind/domain/entity/number"
-	"github.com/gnames/gnumfind/domain/usecase/numfinder"
+	"github.com/gnames/gner/ent/txt"
+	"github.com/gnames/gnumfinder"
+	"github.com/gnames/gnumfinder/ent/number"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestText(t *testing.T) {
-	var nr ner.NERecognizer
-	nr = numfinder.NewNERecognizer()
+	nr := gnumfinder.New()
 	textRunes := []rune("123 one two three")
 	text := txt.NewTextNER(textRunes)
 	nr.Find(text)
@@ -30,8 +28,7 @@ func TestText(t *testing.T) {
 }
 
 func TestCleanNum(t *testing.T) {
-	var nr ner.NERecognizer
-	nr = numfinder.NewNERecognizer()
+	nr := gnumfinder.New()
 	textRunes := []rune("123 ab12зo2I1 062Oabc7")
 	text := txt.NewTextNER(textRunes)
 	nr.Find(text)
@@ -51,8 +48,7 @@ func TestCleanNum(t *testing.T) {
 }
 
 func TestYear(t *testing.T) {
-	var nr ner.NERecognizer
-	nr = numfinder.NewNERecognizer()
+	nr := gnumfinder.New()
 	textRunes := []rune("123 ab1830FD 18og, 2008, 2005b")
 	text := txt.NewTextNER(textRunes)
 	nr.Find(text)
@@ -71,8 +67,7 @@ func TestYear(t *testing.T) {
 }
 
 func TestVolume(t *testing.T) {
-	var nr ner.NERecognizer
-	nr = numfinder.NewNERecognizer()
+	nr := gnumfinder.New()
 	vol := volumeTest1(t)
 	nr.FindInVolume(vol)
 	outPages := vol.GetPages()
@@ -82,7 +77,7 @@ func TestVolume(t *testing.T) {
 func volumeTest1(t *testing.T) txt.VolumeNER {
 	var pages []txt.PageNER
 	res := txt.NewVolumeNER("test1")
-	path := filepath.Join("..", "..", "..", "testdata", "test1")
+	path := filepath.Join("testdata", "test1")
 	files, err := ioutil.ReadDir(path)
 	pages = make([]txt.PageNER, len(files))
 	assert.Nil(t, err)
@@ -91,7 +86,8 @@ func volumeTest1(t *testing.T) txt.VolumeNER {
 		filePath := filepath.Join(path, id)
 		text, err := ioutil.ReadFile(filePath)
 		assert.Nil(t, err)
-		page := txt.NewPageNER(id, []rune(string(text)))
+		txtNER := txt.NewTextNER([]rune(string(text)))
+		page := txt.NewPageNER(id, txtNER)
 		pages[i] = page
 	}
 	res.SetPages(pages)

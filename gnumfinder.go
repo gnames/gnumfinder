@@ -1,32 +1,31 @@
-package numfinder
+package gnumfinder
 
 import (
-	"github.com/gnames/gner/domain/entity/token"
-	"github.com/gnames/gner/domain/entity/txt"
-	"github.com/gnames/gnumfind/domain/entity/number"
+	"github.com/gnames/gner/ent/txt"
+	"github.com/gnames/gnumfinder/ent/number"
+	"github.com/gnames/gnumfinder/ent/token"
 )
 
-type numfinder struct{}
+type gnumfinder struct{}
 
-func NewNERecognizer() numfinder {
-	return numfinder{}
+func New() GNumfinder {
+	return gnumfinder{}
 }
 
-func (n numfinder) Find(tn txt.TextNER) {
+func (n gnumfinder) Find(tn txt.TextNER) {
 	tokens := token.Tokenize(tn.GetText())
 	nums := make([]txt.EntityNER, 0, len(tokens))
 	lines := make(map[int]int)
 	for _, v := range tokens {
-		lines[v.Line] += 1
-		if v.HasDigits {
+		lines[v.Line()] += 1
+		if v.Features().HasDigits {
 			nums = append(nums, number.NewNumber(v))
 		}
 	}
-	tn.SetLines(lines)
 	tn.SetEntities(nums)
 }
 
-func (n numfinder) FindInVolume(vol txt.VolumeNER) {
+func (n gnumfinder) FindInVolume(vol txt.VolumeNER) {
 	pages := vol.GetPages()
 	for _, p := range pages {
 		n.Find(p)

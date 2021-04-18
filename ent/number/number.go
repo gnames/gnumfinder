@@ -6,8 +6,8 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/gnames/gner/domain/entity/token"
 	"github.com/gnames/gnlib/encode"
+	"github.com/gnames/gnumfinder/ent/token"
 )
 
 type state int
@@ -34,26 +34,27 @@ var char2digit = map[rune]rune{
 var maxYear = time.Now().Year() + 2
 
 type Number struct {
-	Token       token.Token `json:"-"`
-	Raw         string      `json:"raw"`
-	Start       int         `json:"start"`
-	End         int         `json:"end"`
-	Number      int         `json:"number"`
-	NumRestored int         `json:"numRestored"`
-	MaybePage   bool        `json:"maybePage"`
-	MaybeYear   bool        `json:"maybeYear"`
+	token.TokenN `json:"-"`
+	Raw          string `json:"raw"`
+	Start        int    `json:"start"`
+	End          int    `json:"end"`
+	Number       int    `json:"number"`
+	NumRestored  int    `json:"numRestored"`
+	MaybePage    bool   `json:"maybePage"`
+	MaybeYear    bool   `json:"maybeYear"`
 }
 
-func NewNumber(t token.Token) Number {
-	if !t.HasDigits {
-		log.Fatalf("Token %s has no number in it", string(t.Raw))
+func NewNumber(t token.TokenN) Number {
+	f := t.Features()
+	if !f.HasDigits {
+		log.Fatalf("Token %s has no number in it", string(t.Raw()))
 	}
 	num, numRestored := cleanNumber(t)
 	res := Number{
-		Token:       t,
-		Raw:         string(t.Raw),
-		Start:       t.Start,
-		End:         t.End,
+		TokenN:      t,
+		Raw:         string(t.Raw()),
+		Start:       t.Start(),
+		End:         t.End(),
 		Number:      num,
 		NumRestored: numRestored,
 	}
@@ -66,12 +67,13 @@ func (n Number) ToJSON(pretty bool) ([]byte, error) {
 	return enc.Encode(n)
 }
 
-func cleanNumber(t token.Token) (int, int) {
-	if t.IsNumber {
-		num, _ := strconv.Atoi(t.Cleaned)
+func cleanNumber(t token.TokenN) (int, int) {
+	f := t.Features()
+	if f.IsNumber {
+		num, _ := strconv.Atoi(t.Cleaned())
 		return num, num
 	}
-	cleaned := []rune(t.Cleaned)
+	cleaned := []rune(t.Cleaned())
 	num := make([]rune, 0, len(cleaned))
 	numRest := make([]rune, 0, len(cleaned))
 	state := enter
@@ -116,7 +118,8 @@ func restoreDigit(numRest *[]rune, r rune) state {
 }
 
 func decideIfYear(n Number) bool {
-	if !(n.Token.IsNumber || len(strconv.Itoa(n.NumRestored)) == len(n.Token.Cleaned)) {
+	f := n.Features()
+	if !(f.IsNumber || len(strconv.Itoa(n.NumRestored)) == len(n.Cleaned())) {
 		return false
 	}
 	if n.NumRestored <= maxYear && n.NumRestored > 1749 {
