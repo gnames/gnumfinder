@@ -3,7 +3,7 @@ package token_test
 import (
 	"testing"
 
-	"github.com/gnames/gnumfinder/ent/token"
+	"github.com/gnames/gnumfinder/internal/ent/token"
 	"github.com/tj/assert"
 )
 

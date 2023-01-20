@@ -6,8 +6,8 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/gnames/gnlib/encode"
-	"github.com/gnames/gnumfinder/ent/token"
+	"github.com/gnames/gnfmt"
+	"github.com/gnames/gnumfinder/internal/ent/token"
 )
 
 type state int
@@ -63,7 +63,7 @@ func NewNumber(t token.TokenN) Number {
 }
 
 func (n Number) ToJSON(pretty bool) ([]byte, error) {
-	enc := encode.GNjson{Pretty: pretty}
+	enc := gnfmt.GNjson{Pretty: pretty}
 	return enc.Encode(n)
 }
 

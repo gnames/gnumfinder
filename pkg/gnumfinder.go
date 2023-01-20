@@ -2,8 +2,8 @@ package gnumfinder
 
 import (
 	"github.com/gnames/gner/ent/txt"
-	"github.com/gnames/gnumfinder/ent/number"
-	"github.com/gnames/gnumfinder/ent/token"
+	"github.com/gnames/gnumfinder/internal/ent/number"
+	"github.com/gnames/gnumfinder/internal/ent/token"
 )
 
 type gnumfinder struct{}

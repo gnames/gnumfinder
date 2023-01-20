@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/gnames/gnumfinder/gnumfinder/cmd"
+import "github.com/gnames/gnumfinder/cmd"
 
 func main() {
 	cmd.Execute()

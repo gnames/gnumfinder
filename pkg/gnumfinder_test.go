@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/gnames/gner/ent/txt"
-	"github.com/gnames/gnumfinder"
-	"github.com/gnames/gnumfinder/ent/number"
+	"github.com/gnames/gnumfinder/internal/ent/number"
+	gnumfinder "github.com/gnames/gnumfinder/pkg"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -77,7 +77,7 @@ func TestVolume(t *testing.T) {
 func volumeTest1(t *testing.T) txt.VolumeNER {
 	var pages []txt.PageNER
 	res := txt.NewVolumeNER("test1")
-	path := filepath.Join("testdata", "test1")
+	path := filepath.Join("..", "internal", "testdata", "test1")
 	files, err := ioutil.ReadDir(path)
 	pages = make([]txt.PageNER, len(files))
 	assert.Nil(t, err)
